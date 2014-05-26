@@ -28,6 +28,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
+	sign_in @user
         #flash[:success] = "Welcome to Reading Groups!"
         format.html { redirect_to @user, success: 'Welcome to Reading Groups!' }
         format.json { render action: 'show', status: :created, location: @user }

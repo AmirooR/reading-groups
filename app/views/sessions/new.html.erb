@@ -1,0 +1,18 @@
+<% provide(:title, "Sign in") %>
+<div class="row">
+  <div class="span4 offset4 signin_form">
+    <%= form_for(:session, url: sessions_path, class:"form-signin") do |f| %>
+	<h1 class="form-signin-heading">Sign in</h1>
+
+      <!-- %= f.label :login, class: "form-control" % -->
+      <%= f.text_field :login, class: "form-control", placeholder: "Username" , autofocus: true, required: true%>
+
+      <%= f.password_field :password, class: "form-control", placeholder: "Password" , required: true %>
+      
+      <%= f.submit "Sign in", class: "btn btn-large btn-primary btn-block", style:"margin-top: 5px" %>
+    <% end %>
+
+    <p>New user? <%= link_to "Sign up now!", signup_path %></p>
+  </div>
+</div>
+
