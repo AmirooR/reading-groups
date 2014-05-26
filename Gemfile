@@ -7,6 +7,7 @@ gem 'bcrypt-ruby', '3.1.2'
 gem 'will_paginate', '3.0.4'
 gem 'bootstrap-will_paginate', '0.0.9'
 gem 'jalalidate','0.3.3'
+gem 'sprockets', '2.11.0'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3','1.3.8'
