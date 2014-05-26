@@ -1,29 +1,41 @@
 <%= form_for(@user) do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
+	<div class="alert alert-error">
+      	The form contains <%= pluralize(@user.errors.count, "error") %>.
+	</div>
       <ul>
       <% @user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+        <li>* <%= msg %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :login %><br>
-    <%= f.text_field :login %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "form-control", placeholder:"Your name", required: true, autofocus:true %>
+    
+    <%= f.label :email %>
+    <%= f.email_field :email, class: "form-control", placeholder:"me@example.com", required: true %>
+
+    <%= f.label :email_confirmation, "Confirmation" %>
+    <%= f.email_field :email_confirmation, class: "form-control", placeholder:"me@example.com", required: true %>
+ 
+    <!-- = % concat_me = "" % -->
+    <!-- % if !@readonly.nil? % -->
+	<!-- % concat_me = ", readonly: true" % -->
+    <!-- % end % -->
+    <%= f.label :login, "Your username" %>
+    <% if yield(:updating) %>
+    	<%= f.text_field :login , class: "form-control", placeholder:"Username01" ,required: true , readonly: true %>
+    <% else %>
+	<%= f.text_field :login , class: "form-control", placeholder:"Username01" ,required: true  %>
+    <% end %> 
+    <%= f.label :password %>
+    <%= f.password_field :password , class: "form-control", placeholder:"Password", required: true %>
+
+    <%= f.label :password_confirmation, "Confirmation" %>
+    <%= f.password_field :password_confirmation , class: "form-control", placeholder:"Password", required: true %>
+
+    <%= f.submit yield(:submit_text), class: "btn btn-large btn-primary btn-block" %>
 <% end %>

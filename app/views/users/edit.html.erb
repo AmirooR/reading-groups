@@ -1,6 +1,45 @@
-<h1>Editing user</h1>
+<% provide(:title, 'Edit') %>
+<% provide(:submit_text,'Update my account') %>
 
-<%= render 'form' %>
+<h1>Edit your profile</h1>
+
+<div class="row">
+   <div class="span4 offset4">
+<%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+	<div class="alert alert-error">
+      	The form contains <%= pluralize(@user.errors.count, "error") %>.
+	</div>
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li>* <%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "form-control", placeholder:"Your name", required: true, autofocus:true %>
+    
+    <%= f.label :email %>
+    <%= f.email_field :email, class: "form-control", placeholder:"me@example.com", required: true %>
+
+    <%= f.label :email_confirmation, "Confirmation" %>
+    <%= f.email_field :email_confirmation, class: "form-control", placeholder:"me@example.com", required: true %>
+ 
+    <%= f.label :login, "Your username" %>
+    <%= f.text_field :login , class: "form-control", placeholder:"Username01" ,required: true , readonly: true %>
+    <%= f.label :password %>
+    <%= f.password_field :password , class: "form-control", placeholder:"Password", required: true %>
+
+    <%= f.label :password_confirmation, "Confirmation" %>
+    <%= f.password_field :password_confirmation , class: "form-control", placeholder:"Password", required: true %>
+
+    <%= f.submit yield(:submit_text), class: "btn btn-large btn-primary btn-block" %>
+<% end %>
+   </div>
+</div>
 
 <%= link_to 'Show', @user %> |
 <%= link_to 'Back', users_path %>
