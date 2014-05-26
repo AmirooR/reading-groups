@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-
+  before_action :signed_in_user, only: [:edit, :update]
+  before_action :correct_user, only: [:edit, :update]
   # GET /users
   # GET /users.json
   def index
@@ -29,8 +30,8 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
 	sign_in @user
-        #flash[:success] = "Welcome to Reading Groups!"
-        format.html { redirect_to @user, success: 'Welcome to Reading Groups!' }
+        flash[:success] = "Welcome to Reading Groups!"
+        format.html { redirect_to @user }
         format.json { render action: 'show', status: :created, location: @user }
       else
         format.html { render action: 'new' }
@@ -44,7 +45,8 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+	flash[:success] = "Profile updated"
+        format.html { redirect_to @user }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -73,4 +75,17 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:name, :email, :login, :password, :password_confirmation, :email_confirmation)
     end
+
+    def signed_in_user
+	unless signed_in?
+		store_location
+		redirect_to signin_url, notice: "Please sign in."
+	end
+    end
+
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_url) unless current_user?(@user)
+    end
+
 end
