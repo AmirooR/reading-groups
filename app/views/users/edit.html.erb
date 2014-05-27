@@ -38,6 +38,9 @@
 
     <%= f.submit yield(:submit_text), class: "btn btn-large btn-primary btn-block" %>
 <% end %>
+
+  <%= gravatar_for @user, size: 80 %>
+  <a href="http://gravatar.com/emails">change</a>
    </div>
 </div>
 
