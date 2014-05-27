@@ -15,5 +15,5 @@
 /log/*.log
 /tmp
 .secret
-/public/assets/*
+#/public/assets/*
 .*.swp
