@@ -1,0 +1,17 @@
+<tr>
+	<td> <%= link_to group.name, group_path(group) %> </td>
+	<td> <%= group.book_name %> </td>
+	<% des = group.description %>
+	<td> 
+		<%= des[0..50] %> <% if des.length >= 50 %>...<% end %> 
+	</td>
+	<td> <%= group.page_number %></td>
+	<!-- td> <%#= group.start_date %> </td -->
+	<!-- td> <%#= group.end_date %> </td -->
+	<td> <%= group.users.count %> </td>
+	<% @group_admin = User.find( group.admin_id ) %>
+	<td> <%= link_to @group_admin.login, user_path( @group_admin ) %> </td>
+	<td> 
+		<%= render 'group_controls', group: group, group_admin: @group_admin %>
+	</td>
+</tr>

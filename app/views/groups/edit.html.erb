@@ -1,0 +1,46 @@
+<% provide(:title, "Edit group") %>
+<h1>Edit group</h1>
+<div class="row">
+	<div class="span4 offset4">
+<%= form_for(@group) do |f| %>
+  <% if @group.errors.any? %>
+    <div id="error_explanation">
+	<div class="alert alert-error">
+      The form contains <%= pluralize(@group.errors.count, "error") %>
+	</div>
+      <ul>
+      <% @group.errors.full_messages.each do |msg| %>
+        <li>* <%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "form-control", placeholder:"Group name", required: true, autofocus:true %>
+  
+    <%= f.label :book_name %>
+    <%= f.text_field :book_name, class: "form-control", placeholder:"Book name", required: true %>
+
+    <%= f.label :page_number, "Number of pages" %>
+    <%= f.number_field :page_number, class: "form-control", placeholder:"400", required: true %>
+
+    <%= f.label :description %>
+    <%= f.text_area :description, class: "form-control", placeholder:"Short Description ( maximum 1000 characters ) of the book ... ", required: true %>
+
+    <%= f.label :start_date %>
+    <%= f.date_select :start_date %>
+
+    <%= f.label :end_date %>
+    <%= f.date_select :end_date %>
+	
+	<%= f.label :num_to_read, "Read to page number" %>
+	<%= f.number_field :num_to_read, class: "form-control", placeholder:"400", required: true %>
+
+    <%= f.submit "Update this group", class: "btn btn-large btn-primary btn-block" %>
+<% end %>
+
+<%= link_to 'Show', @group %> |
+<%= link_to 'Groups', groups_path %> | <%= link_to 'Delete <i class="icon-trash icon-white"></i>'.html_safe, @group, method: :delete, data: { confirm: "Are you sure?"}, class: "btn btn-primary btn-danger" %>
+  </div>
+</div>

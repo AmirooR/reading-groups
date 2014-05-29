@@ -1,0 +1,17 @@
+<% if signed_in? %>
+	<% user_group = UserGroup.where( 'user_id in (?) and group_id in (?)', current_user.id, group.id) %>
+	<% if group_admin.id == current_user.id %>
+		<%= link_to 'Edit <i class="icon-pencil "></i>'.html_safe, edit_group_path(group), class: "btn btn-mini ", style:"width: 50px" %>
+		<%= link_to 'Delete <i class="icon-trash icon-white"></i>'.html_safe, group, method: :delete, data: { confirm: "Are you sure?"}, class: "btn btn-danger btn-mini" , style:"width: 50px"%>
+		
+	<% elsif user_group.count == 0 %>
+	  <%= form_for(:user_group, url: user_groups_path) do |f| %>
+		<%= hidden_field_tag :group_id, group.id  %>
+		<%= button_tag(type: "submit", class: "btn btn-mini btn-success") do %>
+				&nbsp;&nbsp;Join &nbsp;<i class="icon-plus icon-white"></i>&nbsp;&nbsp;
+		<% end %>
+	  <% end %>
+	<% else %>
+	  <%= link_to 'Leave <i class="icon-minus icon-white"></i>'.html_safe, user_group[0], method: :delete, data: { confirm: "Are you sure?"}, class: "btn btn-danger btn-mini", style:"width: 50px" %>
+	<% end %>
+<% end %>
