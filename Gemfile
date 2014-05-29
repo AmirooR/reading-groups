@@ -9,6 +9,7 @@ gem 'bootstrap-will_paginate', '0.0.9'
 gem 'jalalidate','0.3.3'
 gem 'sprockets', '2.11.0'
 gem 'faker', '1.1.2'
+gem 'custom_error_message', github: 'nwise/custom_error_message'
 
 # Use sqlite3 as the database for Active Record
 group :development do

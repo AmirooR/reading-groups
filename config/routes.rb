@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  #get "user_groups/create"
+  resources :groups
+
+  resources :user_groups, only: [:create, :destroy]
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   root 'static_pages#home'

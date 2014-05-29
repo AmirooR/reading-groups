@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/nwise/custom_error_message.git
+  revision: d469cb6daa59aefe57f4bed72141a6632b15d41a
+  specs:
+    custom_error_message (0.1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -125,6 +131,7 @@ DEPENDENCIES
   bootstrap-sass (= 2.3.2.0)
   bootstrap-will_paginate (= 0.0.9)
   coffee-rails (~> 4.0.0)
+  custom_error_message!
   faker (= 1.1.2)
   jalalidate (= 0.3.3)
   jbuilder (~> 1.2)
