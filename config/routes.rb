@@ -1,8 +1,14 @@
 Rails.application.routes.draw do
-  #get "user_groups/create"
-  resources :groups
+  #resources :comments
 
-  resources :user_groups, only: [:create, :destroy]
+  #get "user_groups/create"
+  resources :groups do
+	resources :comments do
+		match 'bookpage/:bookpage', to: 'comments#bookpage', via: 'get', on: :collection
+	end
+  end
+
+  resources :user_groups, only: [:create, :destroy, :edit, :update]
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   root 'static_pages#home'

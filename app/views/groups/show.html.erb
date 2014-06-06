@@ -63,7 +63,7 @@
 			 </td>
 			 <td>
 				<% user_group = UserGroup.where(' user_id in (?) and group_id in (?)', user.id, @group.id) %>
-				<%= user_group[0].num_read %>
+				<%= link_to user_group[0].num_read, edit_user_group_path(user_group[0]) %>
 			 </td>
 			</tr>	
 		</tbody>
@@ -74,6 +74,7 @@
   </div>
  <% end %>
 
+ <%= link_to 'Comments', group_comments_path(@group), class: "btn btn-info btn-primary" %><br><br>
  <%= render 'group_controls', group: @group, group_admin: owner %>
 
 <% end %>

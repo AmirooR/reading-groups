@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
 	# UserGroup
 	has_many :user_groups, dependent: :destroy
 	has_many :groups, :through => :user_groups
+	has_many :comments
         
 	before_save do
                 self.email = email.downcase
