@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
   #before_action :set_comment, only: [:show, :edit, :update, :destroy]
   before_action :correct_group_user, only: [:edit, :update, :destroy, :create, :new]
+  before_action :correct_commenter, only: [:update, :destroy]
 
   # GET /comments
   # GET /comments.json
@@ -71,7 +72,7 @@ class CommentsController < ApplicationController
   # PATCH/PUT /comments/1.json
   def update
     group = Group.find( params[:group_id] )
-    @comment = group.comments.find(parmas[:id])
+    @comment = group.comments.find(params[:id])
     respond_to do |format|
       if @comment.update_attributes(comment_params)
         format.html { redirect_to [@comment.group, @comment], notice: 'Comment was successfully updated.' }
@@ -89,6 +90,7 @@ class CommentsController < ApplicationController
     group = Group.find( params[:group_id] )
     @comment = group.comments.find(params[:id])
     @comment.destroy
+    flash[:success] = "Comment deleted successfully"
     respond_to do |format|
       format.html { redirect_to group_comments_url }
       format.json { head :ok }
@@ -123,6 +125,14 @@ class CommentsController < ApplicationController
 		redirect_to user_path(current_user), notice: "Wrong path!" 
 	end
 
+    end
+
+    def correct_commenter
+	group = Group.find( params[:group_id] )
+    	@comment = group.comments.find(params[:id])
+	unless @comment.user_id == current_user.id
+		redirect_to group_path(group.id), notice: "You are not allowed to do that"
+	end
     end
 
 end
