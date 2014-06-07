@@ -22,6 +22,12 @@
 				<span class="dateandoptions">
 				<em>on <%= comment.created_at.strftime('%b %d, %Y at %I:%M %p')%></em>
 				</span>
+				<br>
+				<% if signed_in? && current_user.id == comment.user_id%>
+					<%= link_to 'Edit', edit_group_comment_path(comment.group, comment) %> |
+					<%= link_to 'Delete', group_comment_path(comment.group, comment), method: :delete %>
+
+				<% end %>
 
 			</div>
 		<% end %>
