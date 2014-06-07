@@ -1,11 +1,15 @@
 
+<div class="row">
+ <div class="span3">
 <%= form_for(@user_group) do |f| %>
  <% if @user_group.errors.any? %>
   <div id="error_explanation">
-   <h2><%= pluralize(@user_group.errors.count, "error") %> prohibited this comment from being saved:</h2>
+   <div class="alert alert-error">
+    The form contains <%= pluralize(@user_group.errors.count, "error") %>
+   </div>
       <ul>
       <% @user_group.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+        <li>* <%= msg %></li>
       <% end %>
       </ul>
 
@@ -16,6 +20,10 @@
 	<%= f.number_field :num_read %>
  </div>
  <div class="actions">
-  <%= f.submit %>
+  <%= f.submit "Change", class: "btn" %>
  </div>
 <% end %>
+ </div>
+</div>
+
+<%= link_to 'Back to group page', group_path(@user_group.group_id) %>

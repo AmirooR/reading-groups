@@ -74,7 +74,14 @@
   </div>
  <% end %>
 
- <%= link_to 'Comments', group_comments_path(@group), class: "btn btn-info btn-primary" %><br><br>
- <%= render 'group_controls', group: @group, group_admin: owner %>
+  <%= render 'group_controls', group: @group, group_admin: owner %><br><br>
+  
+	
+  <% @comment = @group.comments.build %>
+  <%= render 'comments/form' %>
+
+  <%= render 'comments/show_comments', comments: @top_comments %>
+
+  <%= link_to 'All comments', group_comments_path(@group), class: "btn btn-info btn-primary" %><br><br>
 
 <% end %>

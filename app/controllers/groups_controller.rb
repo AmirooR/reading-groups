@@ -8,7 +8,15 @@ class GroupsController < ApplicationController
   # GET /groups
   # GET /groups.json
   def index
-    @groups = Group.paginate(page: params[:page], per_page: 10) #order: 'name ASC'
+	if params.has_key?(:search)
+		@groups = Group.search(params[:search]).paginate(page: params[:page], per_page: 10)
+	else
+    		@groups = Group.paginate(page: params[:page], per_page: 10) #order: 'name ASC'
+	end
+	#respond_to do |format|
+	#	format.js {}
+	#	format.html {}
+	#end
   end
 
   # GET /groups/1
@@ -23,6 +31,10 @@ class GroupsController < ApplicationController
 	@group_users = WillPaginate::Collection.create(  current_page, per_page, @group.users.length) do |pager|
 		pager.replace @group.users
 	end
+
+	#@comment = @group.comments.build
+
+	@top_comments = @group.comments.last(10)
   end
 
   # GET /groups/new

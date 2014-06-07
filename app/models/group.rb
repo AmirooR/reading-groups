@@ -26,4 +26,8 @@ class Group < ActiveRecord::Base
 			errors.add(:num_to_read, "^Read to page number must be less than or equal to number of pages")
 		end
 	end
+
+	def self.search(query)
+		where("name like ?", "%#{query}%")
+	end
 end

@@ -6,8 +6,8 @@ class CommentsController < ApplicationController
   # GET /comments.json
   def index
     if params.has_key?(:group_id)
-	group = Group.find(params[:group_id])
-	@comments = group.comments
+	@group = Group.find(params[:group_id])
+	@comments = @group.comments
     else
     	@comments = Comment.all
     end
@@ -116,7 +116,7 @@ class CommentsController < ApplicationController
 	if params.has_key?(:group_id)
 		unless current_user.group_ids.include? params[:group_id].to_i
 			store_location
-			redirect_to groups_path(params[:group_id]), notice: "You must be a member of this group first"
+			redirect_to group_path(params[:group_id]), notice: "You must be a member of this group first"
 			return
 		end
         else

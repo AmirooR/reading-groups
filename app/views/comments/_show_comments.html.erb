@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="span8 offset2">
+<% unless comments.empty? %>
+		<h3><%= pluralize(comments.size, 'comment') %></h3>
+		<div id="comments">
+		<% comments.each  do |comment|%>
+			<div class="comment" data-time="<%= comment.created_at.to_i %>" >
+				<strong><%= comment.title%> </strong>
+				<%= simple_format comment.body %>
+				<strong><%= User.find(comment.user_id).login %></strong> wrote:
+				<span class="dateandoptions">
+				<em>on <%= comment.created_at.strftime('%b %d, %Y at %I:%M %p')%></em>
+				</span>
+
+			</div>
+		<% end %>
+		</div>
+	<% end %>
+  </div>
+</div>
