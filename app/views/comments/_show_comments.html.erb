@@ -6,6 +6,7 @@
 		<% comments.each  do |comment|%>
 			<div class="comment" data-time="<%= comment.created_at.to_i %>" >
 				<strong><%= comment.title%> </strong>
+				<em>on page: <%= comment.page_number %></em>
 				<%= simple_format comment.body %>
 				<strong><%= User.find(comment.user_id).login %></strong> wrote:
 				<span class="dateandoptions">
