@@ -1,7 +1,11 @@
 <div class="row">
   <div class="span8 offset2">
 <% unless comments.empty? %>
-		<h3><%= pluralize(comments.size, 'comment') %></h3>
+		<h3>
+		<% if Group.find(comments.first.group_id).comments.count > comments.size %>
+			Last
+		<% end %>
+		<%= pluralize(comments.size, 'comment') %></h3>
 		<div id="comments">
 		<% comments.each  do |comment|%>
 			<div class="comment" data-time="<%= comment.created_at.to_i %>" >
@@ -16,6 +20,6 @@
 			</div>
 		<% end %>
 		</div>
-	<% end %>
+		<% end %>
   </div>
 </div>
