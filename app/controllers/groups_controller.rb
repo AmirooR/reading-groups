@@ -34,7 +34,7 @@ class GroupsController < ApplicationController
 
 	#@comment = @group.comments.build
 
-	@top_comments = @group.comments.order(created_at: :desc)
+	@top_comments = @group.comments.order(created_at: :desc).limit(10)
   end
 
   # GET /groups/new
