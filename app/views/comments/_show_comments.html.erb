@@ -12,7 +12,13 @@
 				<strong><%= comment.title%> </strong>
 				<em>on page: <%= comment.page_number %></em>
 				<%= simple_format comment.body %>
-				<strong><%= User.find(comment.user_id).login %></strong> wrote:
+				<strong>
+				<% if User.where(id: comment.user_id).count > 0 %>
+					<%= User.find(comment.user_id).login %>
+				<% else %>
+					An unlucky deleted user
+				<% end %>
+				</strong> wrote:
 				<span class="dateandoptions">
 				<em>on <%= comment.created_at.strftime('%b %d, %Y at %I:%M %p')%></em>
 				</span>
