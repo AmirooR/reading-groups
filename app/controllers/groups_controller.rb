@@ -27,14 +27,20 @@ class GroupsController < ApplicationController
 		 current_page =  params[:page]
 	end
 	per_page = 10
-		
-	@group_users = WillPaginate::Collection.create(  current_page, per_page, @group.users.length) do |pager|
-		pager.replace @group.users
+	if signed_in?	
+		@group_users = WillPaginate::Collection.create(  current_page, per_page, @group.users.length) do |pager|
+			pager.replace @group.users #.where('user_id not in (?)', current_user.id)
+		end
+
+		#@comment = @group.comments.build
+
+		@top_comments = @group.comments.order(created_at: :desc).limit(10)
+		@comment_pages = {}
+		pgs = @group.comments.select('page_number')
+		pgs.each do |p|
+			@comment_pages[p.page_number] = true
+		end
 	end
-
-	#@comment = @group.comments.build
-
-	@top_comments = @group.comments.order(created_at: :desc).limit(10)
   end
 
   # GET /groups/new

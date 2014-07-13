@@ -2,12 +2,12 @@
 
     <% if @groups.any? %>
 	 <div class="row"> 
-	  <div class="span4 offset4">
+	  <div class="span4 offset1">
 	  <%= form_tag groups_path, :method => :get, remote: true, class: "form-horizontal form-inline form-search", role:"form" do %>
 		<div class="form-group">
 		    <!-- %= label_tag :search, "Name" % --> 
-		    <%= text_field_tag :search, params[:search], class: "input-medium search-query", placeholder: "Group name" %>
-		    <%= submit_tag "Search", :name => nil, class: "form-control btn btn-info" %>
+		    <%= text_field_tag :search, params[:search], class: "input-large search-query", placeholder: "Search Group name" %>
+		    <!-- %= submit_tag "Search", :name => nil, class: "form-control btn btn-info" % -->
 		</div>
 	  <% end %>
 	  </div>
