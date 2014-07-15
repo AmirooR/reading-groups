@@ -70,13 +70,9 @@ var my_fun = function(a)
 						
 					</td>
 					<td>
-						<!-- %= link_to user_group[0].num_read, edit_user_group_path(user_group[0]) % -->
 						<div id="mainslider" data-toggle="tooltip" data-placement="right" trigger="manual" title="Page: <%= @group.num_to_read%>, due on: <%= @group.end_date%>"></div>
 						<script type="text/javascript">
 							$('#mainslider').tooltip().eq(0).tooltip('show').tooltip('disable').on('mouseout',function(){ $(this).tooltip('enable');});
-							/*$('#mainslider').on('hide.bs.tooltip',function(){
-								$('#mainslider').tooltip('show');
-							});*/
 							bookSlider('#mainslider', <%= @group.page_number %>, 20, true, <%= @group.num_to_read %>, true, <%= @comment_pages.to_json.html_safe %>, my_fun );
 						</script>
 					</td>
@@ -144,7 +140,6 @@ var my_fun = function(a)
    </div> 
    <div class="modal-footer"> 
     <button type="button" class="btn btn-default" data-dismiss="modal">Close </button> 
-    <!-- button type="button" class="btn btn-primary"> Ok </button -->
     <%= submit_tag "Ok", :name=>nil, class: "form-control btn btn-primary" %>
    </div> 
 <% end %>
