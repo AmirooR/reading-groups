@@ -1,4 +1,6 @@
 <h1>Listing comments</h1>
 
+<%= link_to 'Back to group', @group, class: "btn btn-primary" %>
 <%= render 'show_comments', comments: @comments %>
 <%= render 'form' %>
+

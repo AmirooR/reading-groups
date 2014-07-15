@@ -4,6 +4,9 @@
   <title> <%= full_title(yield(:title)) %></title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag("d3.min") %>
+  <%= javascript_include_tag("d3.tip.v0.6.3") %>
+  <%= javascript_include_tag("bookSlider") %>
   <%= javascript_include_tag 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' %>
   <%= csrf_meta_tags %>
   <%= render 'layouts/shim' %>

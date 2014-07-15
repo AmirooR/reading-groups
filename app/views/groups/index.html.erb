@@ -6,7 +6,7 @@
 	  <%= form_tag groups_path, :method => :get, remote: true, class: "form-horizontal form-inline form-search", role:"form" do %>
 		<div class="form-group">
 		    <!-- %= label_tag :search, "Name" % --> 
-		    <%= text_field_tag :search, params[:search], class: "input-large search-query", placeholder: "Search Group name" %>
+		    <%= text_field_tag :search, params[:search], class: "input-large search-query", placeholder: "Search group name" %>
 		    <!-- %= submit_tag "Search", :name => nil, class: "form-control btn btn-info" % -->
 		</div>
 	  <% end %>

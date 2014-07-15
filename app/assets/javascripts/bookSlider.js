@@ -7,7 +7,9 @@
 *   @param square       true/false if you want the height to 
 *                           match the (calculated first) width
 */
-function bookSlider(id, width, height, square, readPages, addComments, comments)
+//var cur_bookpage = 1;
+
+function bookSlider(id, width, height, square, readPages, addComments, comments, myFn)
 {
 	d3.select("#number").append("svg")
 		.attr("width",100)
@@ -74,14 +76,19 @@ function bookSlider(id, width, height, square, readPages, addComments, comments)
 		})
 	.on('click', function() {
 		x = d3.select(this).attr("x");
-		y = d3.select(this).attr("y");
+		//y = d3.select(this).attr("y");
 		w = d3.select(this).attr("width");
-		h = d3.select(this).attr("height");
-		console.log(x);
-		console.log(y);
-		console.log(w);
-		a = Math.ceil(x / w)
-		b = Math.ceil(y / h)
+		//h = d3.select(this).attr("height");
+		//console.log(x);
+		//console.log(y);
+		//console.log(w);
+		a = Math.ceil(x / w);
+		//b = Math.ceil(y / h);
+		//console.log( a );
+		//cur_bookpage = a;
+		myFn(a);
+		//$('#page').html( 'Salam: '+a);
+		//$('#myModal').modal('show');
 		//d3.select("#viz").attr("dy",".35em").text(a + ", "+ b);
 	})
 	//.style("fill", '#FFF')
@@ -127,6 +134,7 @@ function createData(gridWidth, gridHeight, square)
 {
 	var data = new Array();
 	var gridItemWidth = 1;//gridWidth / 800;
+	//var gridItemWidth = gridWidth / 800;
 	var gridItemHeight = (square) ? gridItemWidth : gridHeight / 1;
 	var startX = gridItemWidth / 2;
 	var startY = gridItemHeight / 2;
@@ -141,6 +149,7 @@ function createData(gridWidth, gridHeight, square)
 	{
 		data.push(new Array());
 		for (var index_b = 0; index_b < gridWidth; index_b++)
+		//for (var index_b = 0; index_b < 800; index_b++)
 		{
 			newValue = Math.round(Math.random() * (100 - 1) + 1);
 			data[index_a].push({ 

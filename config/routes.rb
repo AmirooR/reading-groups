@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   #get "user_groups/create"
   resources :groups do
 	resources :comments do
-		match 'bookpage/:bookpage', to: 'comments#bookpage', via: 'get', on: :collection
+		match 'bookpage/:bookpage', to: 'comments#bookpage', via: 'get', on: :collection, as: :page
 	end
   end
 
@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   match '/signin',  to: 'sessions#new',		via: 'get'
 
   match '/signout', to: 'sessions#destroy', 	via: 'delete'
+  post  'modal' => 'user_groups#modal'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

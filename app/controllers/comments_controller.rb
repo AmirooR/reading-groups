@@ -16,10 +16,10 @@ class CommentsController < ApplicationController
 
   def bookpage
 	if params.has_key?(:group_id) && params.has_key?(:bookpage)
-		group = Group.find(params[:group_id])
+		@group = Group.find(params[:group_id])
 		@current_comment_page = params[:bookpage]
-		@comments = group.comments.where( 'page_number in (?)',params[:bookpage] )
-		@comment = group.comments.build
+		@comments = @group.comments.where( 'page_number in (?)',params[:bookpage] )
+		@comment = @group.comments.build
 	else
 		redirect_to groups_path, notice: "How did you get there?"
 	end

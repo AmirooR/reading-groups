@@ -13,9 +13,9 @@ class Group < ActiveRecord::Base
 	validate :num_to_read_less_than_num_pages
 
 	def start_date_not_later_than_end_date
-		if start_date.past?
-			errors.add(:start_date, "^Start date is in past!")
-		end
+		#if start_date.past?
+		#	errors.add(:start_date, "^Start date is in past!")
+		#end
 		if start_date > end_date
 			errors.add(:start_date, "^Start date cannot be later than end date")
 		end

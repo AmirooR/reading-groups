@@ -1,6 +1,6 @@
 class UserGroupsController < ApplicationController
   before_action :set_user_group, only: [:destroy, :update, :edit]
-  before_action :signed_in_user, only: [:create, :edit, :update, :destroy]
+  before_action :signed_in_user, only: [:create, :edit, :update, :destroy, :modal]
   before_action :correct_group_user, only: [:edit,:update,:destroy]
 
   def edit
@@ -33,6 +33,37 @@ class UserGroupsController < ApplicationController
 	@user_group.destroy
 	flash[:success] = "You successfully leaved the group."
 	redirect_to groups_path
+  end
+
+  def modal
+	user_group = UserGroup.find( params[:user_group_id] )
+	group = Group.find(user_group.group_id)
+	bookpage = Integer(params[:bookpage])
+
+	if bookpage < 0 || bookpage > group.page_number
+		flash[:error] = "Invalid number of read pages!"
+		redirect_to group
+	end
+
+	if params[:todo] == "read"
+		user_group.update_attributes( num_read: bookpage )
+		flash[:success] = "Membership update (number of read pages: " + params[:bookpage] + ")"
+		redirect_to group
+
+	elsif params[:todo] == "comments"
+		redirect_to page_group_comments_url(group_id: user_group.group_id, bookpage: bookpage )
+
+	elsif params[:todo] == "milestone"
+		group.update_attributes( :num_to_read=>bookpage , :end_date=>Date.new(Integer(params[:end_date][:year]),Integer(params[:end_date][:month]), Integer(params[:end_date][:day])) )
+		if group.valid?
+			flash[:success] = "Group milestone updated successfully"
+		else
+			flash[:error] = group.errors.messages.first[1][0]
+		end
+		redirect_to group
+	end
+	#flash[:success] = params[:bookpage] + ', action: ' + params[:todo]
+	#redirect_to groups_path
   end
 
 private

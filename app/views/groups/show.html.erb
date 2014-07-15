@@ -42,7 +42,15 @@
 </div>
 </div>
 <% if signed_in? %>
+ <% if current_user.group_ids.include?(@group.id) %>
  <% if @group_users.any? %>
+<script type="text/javascript">
+var my_fun = function(a)
+{
+	$('#bookpage').attr( 'value', a);
+        $('#myModal').modal('show');
+}
+</script>
   <div class="row">
    <center><h3>Users</h3><br/></center>
    <%= will_paginate @group_users %>
@@ -56,7 +64,19 @@
 		</thead>
 		
 		<tbody>
-			<% if current_user.group_ids.include?(@group.id) %>
+			
+				<tr>
+					<td>
+						
+					</td>
+					<td>
+						<!-- %= link_to user_group[0].num_read, edit_user_group_path(user_group[0]) % -->
+						<div id="mainslider" ></div>
+						<script type="text/javascript">
+							bookSlider('#mainslider', <%= @group.page_number %>, 20, true, <%= @group.num_to_read %>, true, <%= @comment_pages.to_json.html_safe %>, my_fun );
+						</script>
+					</td>
+				</tr>
 				<tr>
 					<td>
 						<%= gravatar_for current_user, size: 52 %>
@@ -64,10 +84,13 @@
 					</td>
 					<td>
 						<% user_group = UserGroup.where(' user_id in (?) and group_id in (?)', current_user.id, @group.id) %>
-						<%= link_to user_group[0].num_read, edit_user_group_path(user_group[0]) %>
+						<!-- %= link_to user_group[0].num_read, edit_user_group_path(user_group[0]) % -->
+						<div id="ug<%= user_group[0].id %>" ></div>
+						<script type="text/javascript">
+							bookSlider('#ug<%= user_group[0].id %>', <%= @group.page_number %>, 20, true, <%= user_group[0].num_read %>, false, [], my_fun );
+						</script>
 					</td>
 				</tr>	
-			<% end %>
 			<% @group_users.each do |user| %>
 			 <% if user.id != current_user.id %>
 				<tr>
@@ -77,7 +100,11 @@
 				 </td>
 				 <td>
 					<% user_group = UserGroup.where(' user_id in (?) and group_id in (?)', user.id, @group.id) %>
-					<%= link_to user_group[0].num_read, edit_user_group_path(user_group[0]) %>
+					<!-- %= link_to user_group[0].num_read, edit_user_group_path(user_group[0]) % -->
+					<div id="ug<%= user_group[0].id %>" ></div>
+					<script type="text/javascript">
+						bookSlider('#ug<%= user_group[0].id %>', <%= @group.page_number %>, 20, true, <%= user_group[0].num_read %>, false, [], my_fun );
+					</script>
 				 </td>
 				</tr>	
 			 <% end %>	
@@ -88,9 +115,45 @@
    </div>
    <%= will_paginate @group_users%>
   </div>
- <% end %>
 
-  <%= render 'group_controls', group: @group, group_admin: owner %><br><br>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> 
+ <div class="modal-dialog"> 
+  <div class="modal-content"> 
+   <div class="modal-header"> 
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button> 
+    <h4 class="modal-title" id="myModalLabel"> Choose an action</h4> 
+   </div> 
+<%= form_tag :controller => :user_groups, :action => :modal, :method => :post do %>
+
+	<%= hidden_field_tag :user_group_id, user_group[0].id %>
+   <div class="modal-body">
+	<%= label_tag :bookpage, "page" %>
+	<%= number_field_tag :bookpage, "1", class: "form-control", id: "bookpage" %>
+	<%= label_tag :todo, "action" %>
+	<% if current_user.id == @group.admin_id %>
+	 <%= select_tag :todo, options_for_select([["Set your read number of pages","read"],["View comments","comments"],["Set group milestone","milestone"]]) %>
+	 <%= label_tag :end_date, "Until" %>
+	 <%= select_date Date.today, prefix: :end_date %>
+	<% else %>
+	 <%= select_tag :todo, options_for_select([["Set your read number of pages","read"],["View comments","comments"]]) %>
+	<% end %>
+   </div> 
+   <div class="modal-footer"> 
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close </button> 
+    <!-- button type="button" class="btn btn-primary"> Ok </button -->
+    <%= submit_tag "Ok", :name=>nil, class: "form-control btn btn-primary" %>
+   </div> 
+<% end %>
+
+  </div><!-- /.modal-content --> 
+ </div><!-- /.modal -->
+</div>
+
+
+ <% end %>
+ 
+
+ 
   
 	
   <% @comment = @group.comments.build %>
@@ -99,5 +162,8 @@
   <%= render 'comments/show_comments', comments: @top_comments %>
 
   <%= link_to 'All comments', group_comments_path(@group), class: "btn btn-info btn-primary" %><br><br>
-
+ <% end %>
+  <%= render 'group_controls', group: @group, group_admin: owner %><br><br>
 <% end %>
+
+
