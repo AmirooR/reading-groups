@@ -71,8 +71,12 @@ var my_fun = function(a)
 					</td>
 					<td>
 						<!-- %= link_to user_group[0].num_read, edit_user_group_path(user_group[0]) % -->
-						<div id="mainslider" ></div>
+						<div id="mainslider" data-toggle="tooltip" data-placement="right" trigger="manual" title="Page: <%= @group.num_to_read%>, due on: <%= @group.end_date%>"></div>
 						<script type="text/javascript">
+							$('#mainslider').tooltip().eq(0).tooltip('show').tooltip('disable').on('mouseout',function(){ $(this).tooltip('enable');});
+							/*$('#mainslider').on('hide.bs.tooltip',function(){
+								$('#mainslider').tooltip('show');
+							});*/
 							bookSlider('#mainslider', <%= @group.page_number %>, 20, true, <%= @group.num_to_read %>, true, <%= @comment_pages.to_json.html_safe %>, my_fun );
 						</script>
 					</td>
@@ -167,3 +171,13 @@ var my_fun = function(a)
 <% end %>
 
 
+<script type="text/javascript">
+/*var due_tip = d3.tip().attr("class",'d3-tip').offset([-10,0]).html(function(d){
+	return "<strong style='color:#F09'> Page: </strong> <span style='color:#0F5'> <%= @group.num_to_read %> </span><br>On: <%=@group.end_date %>";
+});
+
+var due_grid = d3.select('#duedate').append("svg").attr("width",15).attr("height",15);//d3.select('#mainslider');
+due_grid.call(due_tip);
+due_tip.show(400);*/
+
+</script>

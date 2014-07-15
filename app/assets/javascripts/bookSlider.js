@@ -34,6 +34,8 @@ function bookSlider(id, width, height, square, readPages, addComments, comments,
 		.attr("height", height + 20)
 		//.attr("class", "chart");
 	grid.call(tip);
+	//var due_tip = d3.tip().attr("class",'d3-tip').offset([-10,0]).html(function(d){ return "salam";});
+	//grid.call(due_tip);
 	var row = grid.selectAll(".row")
 		.data(calData)
 		.enter().append("svg:g")
@@ -62,6 +64,10 @@ function bookSlider(id, width, height, square, readPages, addComments, comments,
 			b = Math.ceil(y / h)
 			//d3.select("#viz").attr("dy",".35em").text(a + ", "+ b);
 			tip.show(a )
+			/*if(addComments)
+			{
+				due_tip.show( readPages)
+			}*/
 		})
 		.on('mouseout', function(d) {
 			x = d3.select(this).attr("x");
@@ -73,6 +79,10 @@ function bookSlider(id, width, height, square, readPages, addComments, comments,
 				return color_me(x,y,w,h, readPages, addComments, comments);
 			});
 			tip.hide();
+			/*if( addComments )
+			{
+				due_tip.hide();
+			}*/
 		})
 	.on('click', function() {
 		x = d3.select(this).attr("x");
