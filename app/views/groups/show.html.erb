@@ -116,7 +116,7 @@ var my_fun = function(a)
    <%= will_paginate @group_users%>
   </div>
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> 
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" hidden="true"> 
  <div class="modal-dialog"> 
   <div class="modal-content"> 
    <div class="modal-header"> 
@@ -167,13 +167,3 @@ var my_fun = function(a)
 <% end %>
 
 
-<script type="text/javascript">
-/*var due_tip = d3.tip().attr("class",'d3-tip').offset([-10,0]).html(function(d){
-	return "<strong style='color:#F09'> Page: </strong> <span style='color:#0F5'> <%= @group.num_to_read %> </span><br>On: <%=@group.end_date %>";
-});
-
-var due_grid = d3.select('#duedate').append("svg").attr("width",15).attr("height",15);//d3.select('#mainslider');
-due_grid.call(due_tip);
-due_tip.show(400);*/
-
-</script>
