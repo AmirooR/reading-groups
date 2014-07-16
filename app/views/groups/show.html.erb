@@ -124,6 +124,7 @@ var my_fun = function(a)
     <h4 class="modal-title" id="myModalLabel"> Choose an action</h4> 
    </div> 
 <%= form_tag :controller => :user_groups, :action => :modal, :method => :post do %>
+	<% user_group = UserGroup.where(' user_id in (?) and group_id in (?)', current_user.id, @group.id) %>
 
 	<%= hidden_field_tag :user_group_id, user_group[0].id %>
    <div class="modal-body">
