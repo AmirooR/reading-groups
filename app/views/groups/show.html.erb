@@ -85,8 +85,9 @@ var my_fun = function(a)
 					<td>
 						<% user_group = UserGroup.where(' user_id in (?) and group_id in (?)', current_user.id, @group.id) %>
 						<!-- %= link_to user_group[0].num_read, edit_user_group_path(user_group[0]) % -->
-						<div id="ug<%= user_group[0].id %>" ></div>
+						<div id="ug<%= user_group[0].id %>" data-toggle="tooltip" data-placement="right" trigger="manual" title="<%= pluralize(user_group[0].num_read, 'page')%> read"></div>
 						<script type="text/javascript">
+							$('#ug<%= user_group[0].id %>').tooltip();
 							bookSlider('#ug<%= user_group[0].id %>', <%= @group.page_number %>, 20, true, <%= user_group[0].num_read %>, false, [], my_fun );
 						</script>
 					</td>
@@ -101,8 +102,9 @@ var my_fun = function(a)
 				 <td>
 					<% user_group = UserGroup.where(' user_id in (?) and group_id in (?)', user.id, @group.id) %>
 					<!-- %= link_to user_group[0].num_read, edit_user_group_path(user_group[0]) % -->
-					<div id="ug<%= user_group[0].id %>" ></div>
+					<div id="ug<%= user_group[0].id %>" data-toggle="tooltip" data-placement="right" trigger="manual" title="<%= pluralize(user_group[0].num_read, 'page') %> read"></div>
 					<script type="text/javascript">
+						$('#ug<%= user_group[0].id %>').tooltip();
 						bookSlider('#ug<%= user_group[0].id %>', <%= @group.page_number %>, 20, true, <%= user_group[0].num_read %>, false, [], my_fun );
 					</script>
 				 </td>
