@@ -26,11 +26,12 @@ class GroupsController < ApplicationController
 	if params[:page]
 		 current_page =  params[:page]
 	end
-	per_page = 10
+	per_page = 7
 	if signed_in?	
-		@group_users = WillPaginate::Collection.create(  current_page, per_page, @group.users.length) do |pager|
-			pager.replace @group.users #.where('user_id not in (?)', current_user.id)
-		end
+		@group_users = @group.users.paginate(:page => current_page, :per_page=>per_page)
+		#@group_users = WillPaginate::Collection.create(  current_page, per_page, @group.users.length) do |pager|
+			#pager.replace @group.users #.where('user_id not in (?)', current_user.id)
+		#end
 
 		#@comment = @group.comments.build
 
