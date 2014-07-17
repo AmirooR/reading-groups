@@ -43,6 +43,7 @@ class UserGroupsController < ApplicationController
 	if bookpage < 0 || bookpage > group.page_number
 		flash[:error] = "Invalid number of read pages!"
 		redirect_to group
+		return
 	end
 
 	if params[:todo] == "read"
