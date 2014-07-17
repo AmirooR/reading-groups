@@ -20,6 +20,15 @@ class CommentsController < ApplicationController
 		@current_comment_page = params[:bookpage]
 		@comments = @group.comments.where( 'page_number in (?)',params[:bookpage] )
 		@comment = @group.comments.build
+		@next_page = nil
+		@prev_page = nil
+		if Integer(params[:bookpage]) <= @group.page_number
+			@next_page = Integer(params[:bookpage]) + 1
+		end
+
+		if Integer(params[:bookpage]) > 1
+			@prev_page = Integer(params[:bookpage]) - 1
+		end
 	else
 		redirect_to groups_path, notice: "How did you get there?"
 	end
