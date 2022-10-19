@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/nwise/custom_error_message.git
+  remote: https://github.com/nwise/custom_error_message.git
   revision: d469cb6daa59aefe57f4bed72141a6632b15d41a
   specs:
     custom_error_message (0.1.0)
@@ -117,7 +117,7 @@ GEM
       polyglot (>= 0.3.1)
     turbolinks (1.1.1)
       coffee-rails
-    tzinfo (0.3.39)
+    tzinfo (0.3.61)
     uglifier (2.5.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
